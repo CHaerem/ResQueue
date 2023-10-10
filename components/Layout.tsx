@@ -7,17 +7,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <Fragment>
       <header>
         <Link href="/">
-          <Button auto>Home</Button>
+          <Button autoFocus>Home</Button>
         </Link>
         <Link href="/about">
-          <Button auto>About</Button>
+          <Button autoFocus>About</Button>
         </Link>
       </header>
       <main>
         {children}
       </main>
       <footer>
-        <p>&copy; 2023 Your App</p>
+        <p>&copy; 2023 Resqueue</p>
       </footer>
     </Fragment>
   );

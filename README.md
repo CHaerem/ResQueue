@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ResQueue
 
-## Getting Started
+## About
 
-First, run the development server:
+ResQueue is a web-based app that brings the jukebox experience to modern bars and social venues. It allows patrons to request songs to be played by paying a small fee. This ensures that the music atmosphere in the venue is truly crowd-sourced and engaging. Additionally, we are introducing a bidding system for users who want their song choice to have priority in the queue.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The app is currently under development and not yet available for public use.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend and Backend**: Next.js
+- **Payment Processing**: Vipps
+- **Music Streaming**: Spotify API
+- **Deployment**: Vercel
+- **UI**: Next UI component library
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+- User-friendly song request system
+- Real-time updating of the song queue
+- Bidding functionality to prioritize song choice
+- Revenue-sharing model with venue owners
+- Google Authentication for secure user accounts
+- Venue-specific queues
 
-To learn more about Next.js, take a look at the following resources:
+## To-Do List
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The following is a list of features and enhancements planned for future development:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Core Features
 
-## Deploy on Vercel
+- [ ] Set up a database to store song requests, queues, and user data
+- [ ] Implement the song request and queuing system
+- [ ] Enable real-time updates to the song queue
+- [ ] Add payment integration using Vipps
+- [ ] Implement the bidding functionality
+- [ ] Create user profiles and dashboard
+- [ ] Finalize revenue-sharing logic
+- [ ] Integrate with Spotify and enable admin users to connect their Spotify accounts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Additional Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] Optimize for mobile devices
+- [ ] Introduce social features like song upvoting
+- [ ] Integrate with the venue's own playlist/sound system
+
+### Miscellaneous
+
+- [x] Basic Next.js project deployed with Vercel
+- [x] Basic Google authentication (in test mode)
+- [x] Registered domain (ResQueue.no)

@@ -13,6 +13,7 @@ The app is currently under development and not yet available for public use.
 - **Music Streaming**: Spotify API
 - **Deployment**: Vercel
 - **UI**: Next UI component library
+- **Database**: PostgreSQL (Vercel Postgres)
 
 ## Features
 
@@ -23,9 +24,18 @@ The app is currently under development and not yet available for public use.
 - Google Authentication for secure user accounts
 - Venue-specific queues
 
-## To-Do List
+## Vercel Commands
 
-The following is a list of features and enhancements planned for future development:
+- **Deploy**: `vercel`
+- **Deploy to Production**: `vercel --prod`
+- **Link to Vercel Project**: `vercel link`
+- **Pull Environment Variables**: `vercel env pull .env.development.local`
+
+## Setup Scripts
+
+- **Create Local Database**: Run the script located at `scripts/create_local_db.sh`
+
+## To-Do List
 
 ### Core Features
 

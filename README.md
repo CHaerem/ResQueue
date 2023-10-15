@@ -33,7 +33,22 @@ The app is currently under development and not yet available for public use.
 
 ## Setup Scripts
 
-- **Create Local Database**: Run the script located at `scripts/create_local_db.sh`
+- **Create Local Database**: 
+  1. Pull the PostgreSQL Docker image: 
+     ```bash
+     docker pull postgres
+     ```
+  2. Run the PostgreSQL container:
+     ```bash
+     docker run -d --name resqueue_db -e POSTGRES_USER=resqueue_dev -e POSTGRES_PASSWORD=DEV_DB_PASSWORD -e POSTGRES_DB=resqueue_dev postgres
+     ```
+
+- **Local SSL Setup**:
+  1. Run the SSL setup script to generate a self-signed SSL certificate:
+     ```bash
+     chmod +x generate-ssl.sh
+     ./generate-ssl.sh
+     ```
 
 ## To-Do List
 

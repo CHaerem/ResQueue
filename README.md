@@ -40,7 +40,7 @@ The app is currently under development and not yet available for public use.
      ```
   2. Run the PostgreSQL container:
      ```bash
-     docker run -d --name resqueue_db -e POSTGRES_USER=resqueue_dev -e POSTGRES_PASSWORD=DEV_DB_PASSWORD -e POSTGRES_DB=resqueue_dev postgres
+     docker run -d --name resqueue_db -e POSTGRES_USER=resqueue_admin -e POSTGRES_PASSWORD=DEV_DB_PASSWORD -e POSTGRES_DB=resqueue_dev -p 5432:5432 postgres
      ```
 
 - **Local SSL Setup**:

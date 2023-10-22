@@ -17,17 +17,19 @@ const options: NextAuthOptions = {
     async signIn({ user, account, profile }) {
       const email = user.email;
       if (email) {
-        const admin = await prisma.admin.findUnique({
-          where: { email: email },
-        });
-        if (admin) {
-          return true;
+        let admin = await prisma.admin.findUnique({ where: { email: email } });
+        if (!admin) {
+          // If the email corresponds to an admin, create a new admin record
+          admin = await prisma.admin.create({
+            data: { email: email },  // You can add name: user.name if name is a field on Admin
+          });
         }
+        return true;  // Allow sign in
       }
-      return false;
+      return false;  // Deny sign in if there's no email or not an admin
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl + "/admin/dashboard";
+      return baseUrl + "/admin/";
     },
   },
 };

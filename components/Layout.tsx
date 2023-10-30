@@ -1,23 +1,23 @@
-import Link from 'next/link';
-import { Fragment } from 'react';
-import { Button } from '@nextui-org/react';
+import Link from "next/link";
+import { Fragment } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Fragment>
       <header>
         <Link href="/">
-          <Button autoFocus>Home</Button>
+          <button autoFocus>Home</button>
         </Link>
         <Link href="/about">
-          <Button autoFocus>About</Button>
+          <button autoFocus>About</button>
+        </Link>
+        <Link href="/admin/profile">
+          <button autoFocus>Profile</button>
         </Link>
       </header>
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
       <footer>
-        <p>&copy; 2023 Resqeue</p>
+        <p>&copy; 2023 ResQeue</p>
       </footer>
     </Fragment>
   );

@@ -1,4 +1,5 @@
-import { useSession } from 'next-auth/react';
+// pages/admin/profile.tsx
+import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
   const { data: session } = useSession();
@@ -19,7 +20,11 @@ export default function ProfilePage() {
         </div>
         <div className="mb-4">
           <strong>Image:</strong>
-          <img src={session.user?.image || ''} alt="User Image" className="mt-2 rounded-full h-16 w-16" />
+          <img
+            src={session.user?.image || ""}
+            alt="User Image"
+            className="mt-2 rounded-full h-16 w-16"
+          />
         </div>
       </div>
     </div>

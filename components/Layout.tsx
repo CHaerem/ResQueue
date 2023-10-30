@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
       <main>{children}</main>
       <footer>
-        <p>&copy; 2023 ResQeue</p>
+        <p>&copy; 2023 ResQueue</p>
       </footer>
     </Fragment>
   );

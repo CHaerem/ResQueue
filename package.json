@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 & local-ssl-proxy --key ./certs/localhost-key.pem --cert ./certs/localhost.pem --source 443 --target 3000",
-    "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate:dev": "export $(cat .env.local | grep -v ^# | xargs) && prisma migrate dev",
     "prisma:migrate:deploy": "export $(cat .env.local | grep -v ^# | xargs) && prisma migrate deploy",

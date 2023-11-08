@@ -1,3 +1,5 @@
+// app/api/auth/[...nextauth]/route.tsx
+
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -17,7 +19,7 @@ const logger = {
   },
 };
 
-export default NextAuth({
+const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     SpotifyProvider({
@@ -33,3 +35,5 @@ export default NextAuth({
   ],
   logger,
 });
+
+export { handler as GET, handler as POST };

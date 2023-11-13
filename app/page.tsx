@@ -4,8 +4,7 @@ import React from "react";
 
 const HomePage = () => (
   <>
-    <h1>Welcome to our website!</h1>
-    <p>This is the home page.</p>
+    <h1>Coming soon...</h1>
   </>
 );
 

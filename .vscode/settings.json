@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Resqueue lokal",
+            "database": "resqueue_dev",
+            "username": "resqueue_admin",
+            "password": "DEV_DB_PASSWORD"
+        }
+    ]
+}

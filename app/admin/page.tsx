@@ -3,7 +3,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 
-export default async function Admin() {
+export default function Admin() {
   const { data: session, status } = useSession();
   return (
     <>

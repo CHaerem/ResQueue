@@ -5,7 +5,7 @@ import SpotifyProvider from "next-auth/providers/spotify";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -38,7 +38,7 @@ const nextAuthOptions: NextAuthOptions = {
   logger,
 };
 
-const handler = (req: NextApiRequest, res: NextApiResponse) =>
-  NextAuth(req, res, nextAuthOptions);
+const handler = (req: NextRequest, res: NextResponse) =>
+  NextAuth(req as any, res as any, nextAuthOptions);
 
 export { handler as GET, handler as POST };

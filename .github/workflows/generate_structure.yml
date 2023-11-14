@@ -1,0 +1,24 @@
+name: Generate Project Structure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Generate Project Structure
+      run: |
+        echo "Project Structure:" > Project_Structure.txt
+        tree -I '.git|node_modules|.github' >> Project_Structure.txt
+
+    - name: Upload Project Structure as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Project-Structure
+        path: Project_Structure.txt

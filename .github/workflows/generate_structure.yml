@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Generate Project Structure
       run: |
@@ -18,7 +18,7 @@ jobs:
         tree -I '.git|node_modules|.github' >> Project_Structure.txt
 
     - name: Upload Project Structure as Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Project-Structure
         path: Project_Structure.txt

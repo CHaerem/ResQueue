@@ -1,80 +1,77 @@
-# ResQueue
+# Prisma Migrations
 
-## About
+This document outlines the process of applying database migrations and other Prisma CLI commands useful in managing the database schema for this project.
 
-ResQueue is a web-based app that brings the jukebox experience to modern bars and social venues. It allows patrons to request songs to be played by paying a small fee. This ensures that the music atmosphere in the venue is truly crowd-sourced and engaging. Additionally, we are introducing a bidding system for users who want their song choice to have priority in the queue.
+## Prerequisites
 
-The app is currently under development and not yet available for public use.
+- Ensure you have Prisma CLI installed globally on your machine:
+  ```bash
+  npm install -g prisma
+  ```
+- Make sure to have dotenv-cli installed to handle environment variables:
+  ```bash
+  npm install dotenv-cli --save-dev
+  ```
+- Environment variables are stored in `.env.development.local`. Ensure this file is correctly configured with your database credentials and other necessary variables.
 
-## Technologies
+## Applying Migrations
 
-- **Frontend and Backend**: Next.js
-- **Payment Processing**: Vipps
-- **Music Streaming**: Spotify API
-- **Deployment**: Vercel
-- **UI**: Next UI component library
-- **Database**: PostgreSQL (Vercel PostgreSQL)
-- **Real-time Data Handling**: Firestore
+1. Navigate to the project directory:
+   ```bash
+   cd ./ResQueue
+   ```
+2. Generate a new migration (if needed):
+   Create a new migration file for any changes made to the `prisma/schema.prisma` file:
+   ```bash
+   npx dotenv -e .env.development.local -- npx prisma migrate dev --name descriptive_name
+   ```
+3. Apply the migration:
+   Apply the migration to update the database schema:
+   ```bash
+   npx dotenv -e .env.development.local -- npx prisma migrate deploy
+   ```
+4. Generate Prisma Client (if needed):
+   If you're using Prisma Client, generate the client code:
+   ```bash
+   npx prisma generate
+   ```
+5. Verify the migration:
+   Check your database to ensure the migration has been applied correctly.
 
-## Features
+## Additional Prisma Commands
 
-- User-friendly song request system
-- Real-time updating of the song queue
-- Bidding functionality to prioritize song choice
-- Revenue-sharing model with venue owners
-- **Spotify Authentication** for secure user accounts
-- Venue-specific queues
+- Introspect Database:
+  Update your Prisma schema to reflect the current state of your database:
+  ```bash
+  npx prisma introspect
+  ```
+- Format Prisma Schema:
+  Format your `prisma/schema.prisma` file to the standard format:
+  ```bash
+  npx prisma format
+  ```
+- View Migrate History:
+  View the migration history of your database:
+  ```bash
+  npx prisma migrate status
+  ```
+- Seed Database:
+  Seed your database with initial data (requires a `prisma/seed.ts` or `prisma/seed.js` file):
+  ```bash
+  npx prisma db seed
+  ```
+- Studio:
+  Open Prisma Studio to view and edit your data:
+  ```bash
+  npx prisma studio
+  ```
 
-## Vercel Commands
+## Troubleshooting
 
-- **Deploy**: `vercel`
-- **Deploy to Production**: `vercel --prod`
-- **Link to Vercel Project**: `vercel link`
-- **Pull Environment Variables**: `vercel env pull .env.development.local`
+- If you encounter environment variable not found errors, ensure your `.env.development.local` file is correctly configured and that you're loading it with dotenv-cli.
+- For other issues, refer to the [Prisma documentation](https://www.prisma.io/docs/).
 
-## Setup Scripts
+## Additional Resources
 
-- **Create Local Database**:
-
-  1. Pull the PostgreSQL Docker image:
-     ```
-     docker pull postgres
-     ```
-  2. Run the PostgreSQL container:
-     ```
-     docker run -d --name resqueue_db -e POSTGRES_USER=resqueue_admin -e POSTGRES_PASSWORD=DEV_DB_PASSWORD -e POSTGRES_DB=resqueue_dev -p 5432:5432 postgres
-     ```
-
-- **Local SSL Setup**:
-  1. Run the SSL setup script to generate a self-signed SSL certificate:
-     ```
-     chmod +x generate-ssl.sh
-     ./generate-ssl.sh
-     ```
-
-## To-Do List
-
-### Core Features
-
-- [ ] Implement the song request and queuing system using Firestore for real-time updates, which will involve:
-  - Storing song information and queue data in Firestore
-  - Associating queue entries with confirmed payments and the admin user's details in the main database
-- [ ] Expand the database schema to handle Vipps payment confirmations and related user data
-- [ ] Enable real-time updates to the song queue through Firestore integration
-- [ ] Add payment integration using Vipps, including processing payment confirmations and linking them to user accounts
-- [ ] Implement the bidding functionality to allow users to prioritize their song choice
-- [ ] Create user profiles and dashboard for managing queues and payments
-- [ ] Finalize revenue-sharing logic with venue owners
-- [x] Integrate with Spotify and enable admin users to connect their Spotify accounts
-
-### Additional Features
-
-- [ ] Optimize for mobile devices
-- [ ] Introduce social features like song upvoting
-- [ ] Integrate with the venue's own playlist/sound system
-
-### Miscellaneous
-
-- [x] Basic Next.js project deployed with Vercel
-- [x] ~~Basic Google authentication (in test mode)~~ Replaced with Spotify Authentication
-- [x] Registered domain (ResQueue.no)
+- [Prisma Migrations Documentation](https://www.prisma.io/docs/concepts/components/prisma-migrate)
+- [Dotenv CLI](https://www.npmjs.com/package/dotenv-cli)

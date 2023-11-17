@@ -13,7 +13,8 @@ The app is currently under development and not yet available for public use.
 - **Music Streaming**: Spotify API
 - **Deployment**: Vercel
 - **UI**: Next UI component library
-- **Database**: PostgreSQL (Vercel Postgres)
+- **Database**: PostgreSQL (Vercel PostgreSQL)
+- **Real-time Data Handling**: Firestore
 
 ## Features
 
@@ -21,7 +22,7 @@ The app is currently under development and not yet available for public use.
 - Real-time updating of the song queue
 - Bidding functionality to prioritize song choice
 - Revenue-sharing model with venue owners
-- Google Authentication for secure user accounts
+- **Spotify Authentication** for secure user accounts
 - Venue-specific queues
 
 ## Vercel Commands
@@ -33,19 +34,20 @@ The app is currently under development and not yet available for public use.
 
 ## Setup Scripts
 
-- **Create Local Database**: 
-  1. Pull the PostgreSQL Docker image: 
-     ```bash
+- **Create Local Database**:
+
+  1. Pull the PostgreSQL Docker image:
+     ```
      docker pull postgres
      ```
   2. Run the PostgreSQL container:
-     ```bash
+     ```
      docker run -d --name resqueue_db -e POSTGRES_USER=resqueue_admin -e POSTGRES_PASSWORD=DEV_DB_PASSWORD -e POSTGRES_DB=resqueue_dev -p 5432:5432 postgres
      ```
 
 - **Local SSL Setup**:
   1. Run the SSL setup script to generate a self-signed SSL certificate:
-     ```bash
+     ```
      chmod +x generate-ssl.sh
      ./generate-ssl.sh
      ```
@@ -54,14 +56,16 @@ The app is currently under development and not yet available for public use.
 
 ### Core Features
 
-- [ ] Set up a database to store song requests, queues, and user data
-- [ ] Implement the song request and queuing system
-- [ ] Enable real-time updates to the song queue
-- [ ] Add payment integration using Vipps
-- [ ] Implement the bidding functionality
-- [ ] Create user profiles and dashboard
-- [ ] Finalize revenue-sharing logic
-- [ ] Integrate with Spotify and enable admin users to connect their Spotify accounts
+- [ ] Implement the song request and queuing system using Firestore for real-time updates, which will involve:
+  - Storing song information and queue data in Firestore
+  - Associating queue entries with confirmed payments and the admin user's details in the main database
+- [ ] Expand the database schema to handle Vipps payment confirmations and related user data
+- [ ] Enable real-time updates to the song queue through Firestore integration
+- [ ] Add payment integration using Vipps, including processing payment confirmations and linking them to user accounts
+- [ ] Implement the bidding functionality to allow users to prioritize their song choice
+- [ ] Create user profiles and dashboard for managing queues and payments
+- [ ] Finalize revenue-sharing logic with venue owners
+- [x] Integrate with Spotify and enable admin users to connect their Spotify accounts
 
 ### Additional Features
 
@@ -72,5 +76,5 @@ The app is currently under development and not yet available for public use.
 ### Miscellaneous
 
 - [x] Basic Next.js project deployed with Vercel
-- [x] Basic Google authentication (in test mode)
+- [x] ~~Basic Google authentication (in test mode)~~ Replaced with Spotify Authentication
 - [x] Registered domain (ResQueue.no)

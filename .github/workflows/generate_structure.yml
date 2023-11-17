@@ -9,14 +9,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install Tree Command
       run: sudo apt-get install tree
+
+    - name: Print Working Directory
+      run: pwd
 
     - name: Generate Project Structure
       run: |
         echo "Project Structure:" > Project_Structure.txt
+        echo "Running tree command:"
+        tree -I '.git|node_modules|.github|*.md'
         tree -I '.git|node_modules|.github|*.md' >> Project_Structure.txt
+
+    - name: Display Project Structure
+      run: cat Project_Structure.txt
 
     - name: Check for Changes
       run: |

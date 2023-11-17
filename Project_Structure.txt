@@ -1,0 +1,38 @@
+Project Structure:
+.
+├── Project_Structure.txt
+├── app
+│   ├── admin
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── profile
+│   │       └── page.tsx
+│   ├── api
+│   │   └── auth
+│   │       └── [...nextauth]
+│   │           └── route.ts
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── Auth.tsx
+│   ├── Footer.tsx
+│   ├── Header.tsx
+│   └── Providers.tsx
+├── generate-ssl.sh
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── prisma
+│   ├── migrations
+│   │   ├── 20231029161724_init_user_and_provider_setup
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── public
+│   ├── next.svg
+│   └── vercel.svg
+├── tailwind.config.ts
+└── tsconfig.json
+
+11 directories, 23 files

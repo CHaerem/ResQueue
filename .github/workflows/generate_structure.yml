@@ -26,15 +26,18 @@ jobs:
     - name: Display Project Structure
       run: cat Project_Structure.txt
 
-    - name: Check for Changes
+    - name: Check if Project_Structure.txt Exists
+      id: check_file
       run: |
-        git diff --exit-code Project_Structure.txt || echo "changes=true" >> $GITHUB_ENV
+        if [ -f Project_Structure.txt ]; then
+          echo "file_exists=true" >> $GITHUB_ENV
+        fi
 
     - name: Commit and Push Changes
-      if: env.changes == 'true'
+      if: env.file_exists == 'true'
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add Project_Structure.txt
-        git commit -m "Update Project Structure"
+        git commit -m "Create or Update Project Structure"
         git push

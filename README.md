@@ -34,6 +34,13 @@ The app is currently under development and not yet available for public use.
 
 ## Setup Scripts
 
+- **Automated Setup**:
+  1. Run the setup script to install Docker, OpenSSL, and set up your local database and SSL:
+     ```
+     chmod +x setup.sh
+     ./setup.sh
+     ```
+
 - **Create Local Database**:
 
   1. Pull the PostgreSQL Docker image:

@@ -1,16 +1,16 @@
 // app/api/playlists/route.ts
 
-import type { NextApiRequest, NextApiResponse } from "next";
 import { auth } from "../../../auth";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(request: Request) {
   console.log("Handling GET request for playlists");
 
   try {
-    const session = await auth(req, res);
+    const session = await auth();
     if (!session) {
-      res.status(401).json({ error: "User must be authenticated" });
-      return;
+      return new Response("User must be authenticated", {
+        status: 401,
+      });
     }
 
     const playlists = [
@@ -18,11 +18,19 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
       { id: 2, name: "Playlist 2" },
       { id: 3, name: "Playlist 3" },
     ];
-    res.status(200).json(playlists);
+    return new Response(JSON.stringify(playlists), {
+      status: 200,
+    });
   } catch (error: any) {
     console.error("Error in GET /api/playlists:", error.message);
-    res
-      .status(500)
-      .json({ error: "Internal Server Error", details: error.message });
+    return new Response(
+      JSON.stringify({
+        error: "Internal Server Error",
+        details: error.message,
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 }

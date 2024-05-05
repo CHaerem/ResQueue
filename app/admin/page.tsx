@@ -4,20 +4,30 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
+interface Playlist {
+  id: number;
+  name: string;
+}
+
 export default function Admin() {
   const { data: session, status } = useSession();
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchPlaylists = async () => {
       if (session) {
         try {
           const res = await fetch("/api/playlists");
-          if (!res.ok) throw new Error("Failed to fetch playlists");
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(errorText || "Failed to fetch playlists");
+          }
           const data = await res.json();
           setPlaylists(data);
-        } catch (error) {
+        } catch (error: any) {
           console.error("Error fetching playlists:", error);
+          setError(error.message);
         }
       }
     };
@@ -37,9 +47,10 @@ export default function Admin() {
     <>
       <h1>Hi {session.user?.name}</h1>
       <h2>Your Playlists</h2>
+      {error && <p>Error: {error}</p>}
       <ul>
-        {playlists.map((playlist: { name: string }, index: number) => (
-          <li key={index}>{playlist.name}</li>
+        {playlists.map((playlist) => (
+          <li key={playlist.id}>{playlist.name}</li>
         ))}
       </ul>
     </>

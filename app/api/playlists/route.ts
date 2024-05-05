@@ -1,6 +1,6 @@
 // app/api/playlists/route.ts
 
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { auth } from "../../../auth";
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
@@ -20,7 +20,6 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     ];
     res.status(200).json(playlists);
   } catch (error: any) {
-    // Assuming TypeScript setting where 'error' type handling is required
     console.error("Error in GET /api/playlists:", error.message);
     res
       .status(500)

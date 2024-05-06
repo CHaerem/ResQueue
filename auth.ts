@@ -110,6 +110,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       id?: string;
+      name?: string;
     };
     accessToken?: string;
     error?: string;

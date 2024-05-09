@@ -1,8 +1,8 @@
-// app/admin/page.tsx
-
 "use client";
+
 import { useSession } from "next-auth/react";
 import PlaybackControl from "@/components/PlaybackControl"; // Adjust the import path as necessary
+import Playlists from "@/components/Playlists"; // Adjust the import path as necessary
 
 export default function Admin() {
   const { data: session, status } = useSession();
@@ -19,7 +19,10 @@ export default function Admin() {
     <>
       <h1>Hi {session.user?.name}</h1>
       {session.accessToken && (
-        <PlaybackControl accessToken={session.accessToken} />
+        <>
+          <PlaybackControl accessToken={session.accessToken} />
+          <Playlists />
+        </>
       )}
     </>
   );

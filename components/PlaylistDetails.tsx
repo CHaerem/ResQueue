@@ -1,18 +1,24 @@
+// components/PlaylistDetails.tsx
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Track {
   id: string;
   name: string;
+  album: { name: string };
+  artists: { name: string }[];
 }
 
 interface PlaylistTrackItem {
-  track: Track;
+  track: Track | null;
 }
 
-interface PlaylistDetails {
+interface PlaylistDetailsProps {
+  playlistId: string;
+}
+
+interface PlaylistDetailsData {
   id: string;
   name: string;
   tracks: {
@@ -20,10 +26,8 @@ interface PlaylistDetails {
   };
 }
 
-const PlaylistDetails = () => {
-  const { playlistId } = useParams();
-  const router = useRouter();
-  const [playlist, setPlaylist] = useState<PlaylistDetails | null>(null);
+const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
+  const [playlist, setPlaylist] = useState<PlaylistDetailsData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,10 +38,9 @@ const PlaylistDetails = () => {
         throw new Error("Failed to fetch playlist");
       }
       const data = await response.json();
-      console.log("Fetched playlist data:", data); // Debugging log
       setPlaylist(data);
     } catch (error: any) {
-      console.error("Error fetching playlist:", error.message); // Debugging log
+      console.error("Error fetching playlist:", error.message);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -48,7 +51,7 @@ const PlaylistDetails = () => {
     if (playlistId) {
       fetchPlaylist();
     }
-  }, [playlistId]);
+  }, [playlistId]); // Added fetchPlaylist to dependencies
 
   const addTrack = async (trackUri: string) => {
     try {
@@ -67,7 +70,7 @@ const PlaylistDetails = () => {
       // Refresh playlist details
       fetchPlaylist();
     } catch (error: any) {
-      console.error("Error adding track:", error.message); // Debugging log
+      console.error("Error adding track:", error.message);
       setError(error.message);
     }
   };
@@ -89,7 +92,7 @@ const PlaylistDetails = () => {
       // Refresh playlist details
       fetchPlaylist();
     } catch (error: any) {
-      console.error("Error reordering track:", error.message); // Debugging log
+      console.error("Error reordering track:", error.message);
       setError(error.message);
     }
   };
@@ -102,11 +105,9 @@ const PlaylistDetails = () => {
     <div>
       <h1>{playlist.name}</h1>
       <ul>
-        {playlist.tracks?.items?.map((item, index) => (
-          <li key={`${item.track.id}-${index}`}>
-            {" "}
-            {/* Ensure unique key */}
-            {item.track.name || "No Name"}
+        {playlist.tracks.items.map((item, index) => (
+          <li key={item.track?.id}>
+            {item.track?.name}
             <button onClick={() => reorderTrack(index, index + 1)}>
               Move Down
             </button>

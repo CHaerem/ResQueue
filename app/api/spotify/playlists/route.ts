@@ -18,8 +18,6 @@ interface SpotifyPlaylistsResponse {
 
 // Function to handle GET request
 export async function GET(request: Request) {
-  console.log("Handling GET request for playlists");
-
   try {
     const session = await auth();
     if (!session || !session.accessToken) {

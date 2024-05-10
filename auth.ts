@@ -16,7 +16,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       authorization: {
         params: {
           scope:
-            "playlist-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing user-read-email user-read-private",
+            "playlist-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing user-read-email user-read-private playlist-modify-private playlist-modify-public",
         },
       },
     }),

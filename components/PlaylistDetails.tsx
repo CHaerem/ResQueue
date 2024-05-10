@@ -1,7 +1,7 @@
 // components/PlaylistDetails.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 interface Track {
   id: string;
@@ -31,7 +31,7 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPlaylist = async () => {
+  const fetchPlaylist = useCallback(async () => {
     try {
       const response = await fetch(`/api/spotify/playlists/${playlistId}`);
       if (!response.ok) {
@@ -45,13 +45,13 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [playlistId]);
 
   useEffect(() => {
     if (playlistId) {
       fetchPlaylist();
     }
-  }, [playlistId]); // Added fetchPlaylist to dependencies
+  }, [playlistId, fetchPlaylist]);
 
   const addTrack = async (trackUri: string) => {
     try {

@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import SearchTracks from "./SearchTracks";
 
 interface Track {
   id: string;
@@ -30,6 +31,8 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
   const [playlist, setPlaylist] = useState<PlaylistDetailsData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<Track[]>([]);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   const fetchPlaylist = useCallback(async () => {
     try {
@@ -121,6 +124,21 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
     }
   };
 
+  const searchTracks = async (query: string) => {
+    try {
+      const response = await fetch(
+        `/api/spotify/search?query=${encodeURIComponent(query)}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to search tracks");
+      }
+      const data = await response.json();
+      setSearchResults(data.tracks.items);
+    } catch (error: any) {
+      setSearchError(error.message);
+    }
+  };
+
   if (loading) return <div>Loading playlist...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!playlist) return <div>Playlist not found</div>;
@@ -157,6 +175,12 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
           Add Track
         </button>
       </div>
+      <SearchTracks
+        onSearch={searchTracks}
+        searchResults={searchResults}
+        error={searchError}
+        onAddTrack={addTrack}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-// compontents/Playlists.tsx
+// components/Playlists.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -21,8 +21,8 @@ const Playlists = () => {
   const [newPlaylistName, setNewPlaylistName] = useState<string>("");
   const [newPlaylistDescription, setNewPlaylistDescription] =
     useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Track[]>([]);
+  const [searchError, setSearchError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -75,10 +75,10 @@ const Playlists = () => {
     }
   };
 
-  const searchTracks = async () => {
+  const searchTracks = async (query: string) => {
     try {
       const response = await fetch(
-        `/api/spotify/search?query=${encodeURIComponent(searchQuery)}`
+        `/api/spotify/search?query=${encodeURIComponent(query)}`
       );
       if (!response.ok) {
         throw new Error("Failed to search tracks");
@@ -86,7 +86,7 @@ const Playlists = () => {
       const data = await response.json();
       setSearchResults(data.tracks.items);
     } catch (error: any) {
-      setError(error.message);
+      setSearchError(error.message);
     }
   };
 
@@ -119,21 +119,6 @@ const Playlists = () => {
           onChange={(e) => setNewPlaylistDescription(e.target.value)}
         />
         <button onClick={createPlaylist}>Create Playlist</button>
-      </div>
-      <div>
-        <h2>Search Tracks</h2>
-        <input
-          type="text"
-          placeholder="Search for tracks"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button onClick={searchTracks}>Search</button>
-        <ul>
-          {searchResults.map((track) => (
-            <li key={track.id}>{track.name}</li>
-          ))}
-        </ul>
       </div>
     </div>
   );

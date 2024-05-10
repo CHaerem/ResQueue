@@ -2,7 +2,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import PlaylistDetails from "@/components/PlaylistDetails"; // Adjust the import path if necessary
+import PlaylistDetails from "@/components/Spotify/PlaylistDetails"; // Adjust the import path if necessary
 
 const PlaylistPage = () => {
   const params = useParams();

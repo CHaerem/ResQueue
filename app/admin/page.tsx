@@ -2,8 +2,8 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import PlaybackControl from "@/components/PlaybackControl"; // Adjust the import path as necessary
-import Playlists from "@/components/Playlists"; // Adjust the import path as necessary
+import PlaybackControl from "@/components/Spotify/PlaybackControl"; // Adjust the import path as necessary
+import Playlists from "@/components/Spotify/Playlists"; // Adjust the import path as necessary
 
 export default function Admin() {
   const { data: session, status } = useSession();

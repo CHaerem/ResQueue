@@ -1,5 +1,6 @@
 // components/Spotify/TrackItem.tsx
 "use client";
+import Image from "next/image";
 
 interface Track {
   id: string;
@@ -36,10 +37,12 @@ const TrackItem: React.FC<TrackItemProps> = ({
       style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
     >
       {track.album.images && track.album.images.length > 0 && (
-        <img
+        <Image
           src={track.album.images[0].url}
           alt={track.album.name}
-          style={{ width: "50px", height: "50px", marginRight: "10px" }}
+          width={50}
+          height={50}
+          className="mr-2"
         />
       )}
       <div>

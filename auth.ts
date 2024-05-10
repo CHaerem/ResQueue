@@ -16,7 +16,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       authorization: {
         params: {
           scope:
-            "playlist-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing user-read-email user-read-private",
+            "playlist-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing user-read-email user-read-private playlist-modify-private playlist-modify-public",
         },
       },
     }),
@@ -110,6 +110,9 @@ declare module "next-auth" {
   interface Session {
     user: {
       id?: string;
+      name?: string;
+      email?: string;
+      image?: string;
     };
     accessToken?: string;
     error?: string;

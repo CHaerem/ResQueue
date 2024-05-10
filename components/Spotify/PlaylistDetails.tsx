@@ -3,11 +3,12 @@
 
 import { useEffect, useState, useCallback } from "react";
 import SearchTracks from "./SearchTracks";
+import TrackItem from "./TrackItem";
 
 interface Track {
   id: string;
   name: string;
-  album: { name: string };
+  album: { name: string; images?: { url: string }[] };
   artists: { name: string }[];
 }
 
@@ -36,7 +37,9 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
 
   const fetchPlaylist = useCallback(async () => {
     try {
-      const response = await fetch(`/api/spotify/playlists/${playlistId}`);
+      const response = await fetch(
+        `/api/spotify/playlists/${playlistId}?market=US&fields=name,tracks.items(track(id,name,artists(name),album(name,images)))`
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch playlist");
       }
@@ -146,34 +149,19 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
   return (
     <div>
       <h1>{playlist.name}</h1>
-      <ul>
-        {playlist.tracks.items.map((item, index) => (
-          <li key={item.track?.id}>
-            {item.track?.name}
-            <button onClick={() => reorderTrack(index, index + 2)}>
-              Move Down
-            </button>
-            <button onClick={() => reorderTrack(index, index - 1)}>
-              Move Up
-            </button>
-            <button onClick={() => item.track && deleteTrack(item.track.id)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
       <div>
-        <input type="text" placeholder="Track URI" id="trackUri" />
-        <button
-          onClick={() => {
-            const trackUri = (
-              document.getElementById("trackUri") as HTMLInputElement
-            ).value;
-            addTrack(trackUri);
-          }}
-        >
-          Add Track
-        </button>
+        {playlist.tracks.items.map(
+          (item, index) =>
+            item.track && (
+              <TrackItem
+                key={item.track.id}
+                track={item.track}
+                onDeleteTrack={deleteTrack}
+                onMoveUp={() => reorderTrack(index, index - 1)}
+                onMoveDown={() => reorderTrack(index, index + 2)}
+              />
+            )
+        )}
       </div>
       <SearchTracks
         onSearch={searchTracks}

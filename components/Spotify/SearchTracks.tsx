@@ -2,10 +2,13 @@
 "use client";
 
 import { useState } from "react";
+import TrackItem from "./TrackItem";
 
 interface Track {
   id: string;
   name: string;
+  album: { name: string; images?: { url: string }[] };
+  artists: { name: string }[];
 }
 
 interface SearchTracksProps {
@@ -38,16 +41,11 @@ const SearchTracks: React.FC<SearchTracksProps> = ({
       />
       <button onClick={handleSearch}>Search</button>
       {error && <div>Error: {error}</div>}
-      <ul>
+      <div>
         {searchResults.map((track) => (
-          <li key={track.id}>
-            {track.name}
-            <button onClick={() => onAddTrack(track.id)}>
-              Add to Playlist
-            </button>
-          </li>
+          <TrackItem key={track.id} track={track} onAddTrack={onAddTrack} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -86,8 +86,8 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { uris, range_start, insert_before } = body;
 
-    if (uris) {
-      // Adding tracks to the playlist
+    // Add tracks to the playlist if 'uris' are provided
+    if (uris && Array.isArray(uris)) {
       const addTracksResponse = await fetch(
         `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
         {
@@ -107,8 +107,8 @@ export async function PUT(request: Request) {
       }
     }
 
+    // Reorder tracks in the playlist if 'range_start' and 'insert_before' are provided
     if (range_start !== undefined && insert_before !== undefined) {
-      // Reordering tracks in the playlist
       const reorderTracksResponse = await fetch(
         `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
         {

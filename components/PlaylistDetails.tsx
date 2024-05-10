@@ -56,7 +56,7 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
   const addTrack = async (trackUri: string) => {
     try {
       const response = await fetch(`/api/spotify/playlists/${playlistId}`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -108,7 +108,7 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
         {playlist.tracks.items.map((item, index) => (
           <li key={item.track?.id}>
             {item.track?.name}
-            <button onClick={() => reorderTrack(index, index + 1)}>
+            <button onClick={() => reorderTrack(index, index + 2)}>
               Move Down
             </button>
             <button onClick={() => reorderTrack(index, index - 1)}>

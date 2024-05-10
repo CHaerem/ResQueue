@@ -148,3 +148,75 @@ export async function PUT(request: Request) {
     console.log("PUT /api/spotify/playlists/[playlistId] - End");
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const session = await auth();
+
+    if (!session || !session.accessToken) {
+      console.log("Unauthorized access attempt");
+      return new Response(
+        JSON.stringify({
+          error: "Unauthorized",
+          message: "User must be authenticated and have a valid access token",
+        }),
+        { status: 401 }
+      );
+    }
+
+    const url = new URL(request.url);
+    const playlistId = url.pathname.split("/").pop();
+
+    if (!playlistId) {
+      throw new Error("Playlist ID is missing in the request URL.");
+    }
+
+    const body = await request.json();
+    const { uris } = body;
+
+    if (!uris || !Array.isArray(uris)) {
+      throw new Error("URIs are missing or not an array.");
+    }
+
+    // Corrected format for removing tracks
+    const tracksToRemove = uris.map((uri: string) => ({ uri }));
+
+    // Remove tracks from the playlist
+    const removeTracksResponse = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tracks: tracksToRemove }),
+      }
+    );
+
+    if (!removeTracksResponse.ok) {
+      const error = await removeTracksResponse.json();
+      console.error("Spotify API error:", error);
+      throw new Error(`Failed to remove tracks: ${error.message}`);
+    }
+
+    return new Response(
+      JSON.stringify({ message: "Tracks removed successfully" }),
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error(
+      "Error in DELETE /api/spotify/playlists/[playlistId]:",
+      error.message
+    );
+    return new Response(
+      JSON.stringify({
+        error: "Internal Server Error",
+        message: error.message,
+      }),
+      { status: 500 }
+    );
+  } finally {
+    console.log("DELETE /api/spotify/playlists/[playlistId] - End");
+  }
+}

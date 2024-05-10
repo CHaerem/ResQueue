@@ -53,8 +53,9 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
     }
   }, [playlistId, fetchPlaylist]);
 
-  const addTrack = async (trackUri: string) => {
+  const addTrack = async (trackId: string) => {
     try {
+      const trackUri = `spotify:track:${trackId}`;
       const response = await fetch(`/api/spotify/playlists/${playlistId}`, {
         method: "PUT",
         headers: {
@@ -97,6 +98,29 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
     }
   };
 
+  const deleteTrack = async (trackId: string) => {
+    try {
+      const trackUri = `spotify:track:${trackId}`;
+      const response = await fetch(`/api/spotify/playlists/${playlistId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ uris: [trackUri] }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete track");
+      }
+
+      // Refresh playlist details
+      fetchPlaylist();
+    } catch (error: any) {
+      console.error("Error deleting track:", error.message);
+      setError(error.message);
+    }
+  };
+
   if (loading) return <div>Loading playlist...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!playlist) return <div>Playlist not found</div>;
@@ -113,6 +137,9 @@ const PlaylistDetails = ({ playlistId }: PlaylistDetailsProps) => {
             </button>
             <button onClick={() => reorderTrack(index, index - 1)}>
               Move Up
+            </button>
+            <button onClick={() => item.track && deleteTrack(item.track.id)}>
+              Delete
             </button>
           </li>
         ))}

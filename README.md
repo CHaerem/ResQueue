@@ -13,8 +13,8 @@ The app is currently under development and not yet available for public use.
 - **Music Streaming**: Spotify API
 - **Deployment**: Vercel
 - **UI**: Next UI component library
-- **Database**: PostgreSQL (Vercel PostgreSQL)
-- **Real-time Data Handling**: Firestore
+- **Database and Real-time Data Handling**: Supabase (PostgreSQL)
+- **ORM**: Prisma
 
 ## Features
 
@@ -35,26 +35,10 @@ The app is currently under development and not yet available for public use.
 ## Setup Scripts
 
 - **Automated Setup**:
-  1. Run the setup script to install Docker, OpenSSL, and set up your local database and SSL:
-     ```
-     chmod +x setup.sh
-     ./setup.sh
-     ```
-
-- **Create Local Database**:
-
-  1. Pull the PostgreSQL Docker image:
-     ```
-     docker pull postgres
-     ```
-  2. Run the PostgreSQL container:
-     ```
-     docker run -d --name resqueue_db -e POSTGRES_USER=resqueue_admin -e POSTGRES_PASSWORD=DEV_DB_PASSWORD -e POSTGRES_DB=resqueue_dev -p 5432:5432 postgres
-     ```
 
 - **Local SSL Setup**:
   1. Run the SSL setup script to generate a self-signed SSL certificate:
-     ```
+     ```bash
      chmod +x generate-ssl.sh
      ./generate-ssl.sh
      ```
@@ -63,11 +47,11 @@ The app is currently under development and not yet available for public use.
 
 ### Core Features
 
-- [ ] Implement the song request and queuing system using Firestore for real-time updates, which will involve:
-  - Storing song information and queue data in Firestore
+- [ ] Implement the song request and queuing system using Supabase for real-time updates, which will involve:
+  - Storing song information and queue data in Supabase
   - Associating queue entries with confirmed payments and the admin user's details in the main database
 - [ ] Expand the database schema to handle Vipps payment confirmations and related user data
-- [ ] Enable real-time updates to the song queue through Firestore integration
+- [ ] Enable real-time updates to the song queue through Supabase integration
 - [ ] Add payment integration using Vipps, including processing payment confirmations and linking them to user accounts
 - [ ] Implement the bidding functionality to allow users to prioritize their song choice
 - [ ] Create user profiles and dashboard for managing queues and payments
@@ -85,3 +69,11 @@ The app is currently under development and not yet available for public use.
 - [x] Basic Next.js project deployed with Vercel
 - [x] ~~Basic Google authentication (in test mode)~~ Replaced with Spotify Authentication
 - [x] Registered domain (ResQueue.no)
+
+## Notes
+
+- Ensure that you have Supabase CLI installed and authenticated before running the Supabase commands.
+- Prisma is used to interact with the Supabase (PostgreSQL) database. Make sure to generate the Prisma client after modifying the schema:
+  ```bash
+  npx prisma generate
+  ```

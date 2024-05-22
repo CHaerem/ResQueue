@@ -42,7 +42,8 @@ jobs:
         if: env.file_exists == 'true'
         run: |
           git fetch
-          git diff origin/main -- Project_Structure.txt || true
+          echo "Checking differences:"
+          git diff origin/main -- Project_Structure.txt
           if git diff --quiet origin/main -- Project_Structure.txt; then
             echo "No changes in Project_Structure.txt"
           else

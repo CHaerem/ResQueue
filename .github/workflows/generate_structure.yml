@@ -8,40 +8,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Install Tree Command
-      run: sudo apt-get install tree
+      - name: Install Tree Command
+        run: sudo apt-get install -y tree
 
-    - name: Print Working Directory
-      run: pwd
+      - name: Print Working Directory
+        run: pwd
 
-    - name: Generate Project Structure
-      run: |
-        echo "Project Structure:" > Project_Structure.txt
-        echo "Running tree command:"
-        tree -I '.git|node_modules|.github|*.md'
-        tree -I '.git|node_modules|.github|*.md' >> Project_Structure.txt
+      - name: List Files in Directory
+        run: ls -la
 
-    - name: Display Project Structure
-      run: cat Project_Structure.txt
+      - name: Generate Project Structure
+        run: |
+          echo "Project Structure:" > Project_Structure.txt
+          echo "Running tree command:" >> Project_Structure.txt
+          tree -I '.git|node_modules|.github|*.md' >> Project_Structure.txt
 
-    - name: Check if Project_Structure.txt Exists
-      id: check_file
-      run: |
-        if [ -f Project_Structure.txt ]; then
-          echo "file_exists=true" >> $GITHUB_ENV
-        fi
+      - name: Display Project Structure
+        run: cat Project_Structure.txt
 
-    - name: Commit and Push Changes
-      if: env.file_exists == 'true'
-      run: |
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
-        git add Project_Structure.txt
-        git diff --staged --quiet || exit 0  # Exit if no changes
-        git commit -m "Create or Update Project Structure" || echo "No changes to commit"
-        git push
+      - name: Check if Project_Structure.txt Exists
+        id: check_file
+        run: |
+          if [ -f Project_Structure.txt ]; then
+            echo "file_exists=true" >> $GITHUB_ENV
+          else
+            echo "file_exists=false" >> $GITHUB_ENV
+          fi
 
-        git push
-
+      - name: Commit and Push Changes
+        if: env.file_exists == 'true'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add Project_Structure.txt
+          git diff --staged --quiet || (git commit -m "Create or Update Project Structure" && git push)

@@ -23,6 +23,7 @@ jobs:
       - name: Generate Project Structure
         run: |
           echo "Project Structure:" > Project_Structure.txt
+          echo "Generated on $(date)" >> Project_Structure.txt  # Add timestamp
           echo "Running tree command:" >> Project_Structure.txt
           tree -I '.git|node_modules|.github|*.md' >> Project_Structure.txt
 

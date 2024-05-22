@@ -1,23 +1,43 @@
 Project Structure:
+Running tree command:
 .
 ├── Project_Structure.txt
 ├── app
 │   ├── admin
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
+│   │   ├── playlist
+│   │   │   └── [playlistId]
+│   │   │       └── page.tsx
 │   │   └── profile
 │   │       └── page.tsx
 │   ├── api
-│   │   └── auth
-│   │       └── [...nextauth]
+│   │   ├── auth
+│   │   │   └── [...nextauth]
+│   │   │       └── route.ts
+│   │   └── spotify
+│   │       ├── player
+│   │       │   └── route.ts
+│   │       ├── playlists
+│   │       │   ├── [playlistId]
+│   │       │   │   └── route.ts
+│   │       │   └── route.ts
+│   │       └── search
 │   │           └── route.ts
 │   ├── layout.tsx
 │   └── page.tsx
+├── auth.ts
 ├── components
 │   ├── Auth.tsx
 │   ├── Footer.tsx
 │   ├── Header.tsx
-│   └── Providers.tsx
+│   ├── Providers.tsx
+│   └── Spotify
+│       ├── PlaybackControl.tsx
+│       ├── PlaylistDetails.tsx
+│       ├── Playlists.tsx
+│       ├── SearchTracks.tsx
+│       └── TrackItem.tsx
 ├── generate-ssl.sh
 ├── next.config.js
 ├── package-lock.json
@@ -32,7 +52,8 @@ Project Structure:
 ├── public
 │   ├── next.svg
 │   └── vercel.svg
+├── setup.sh
 ├── tailwind.config.ts
 └── tsconfig.json
 
-11 directories, 23 files
+19 directories, 35 files

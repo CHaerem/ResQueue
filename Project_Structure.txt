@@ -1,5 +1,5 @@
 Project Structure:
-Generated on Wed May 22 16:21:22 UTC 2024
+Generated on Sun Jun 16 17:31:01 UTC 2024
 Running tree command:
 .
 ├── Project_Structure.txt
@@ -40,13 +40,16 @@ Running tree command:
 │       ├── SearchTracks.tsx
 │       └── TrackItem.tsx
 ├── generate-ssl.sh
+├── lib
+│   └── prisma.ts
 ├── next.config.js
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
 ├── prisma
+│   ├── ResQueue diagram May 23 2024.png
 │   ├── migrations
-│   │   ├── 20231029161724_init_user_and_provider_setup
+│   │   ├── 20240523183841_init
 │   │   │   └── migration.sql
 │   │   └── migration_lock.toml
 │   └── schema.prisma
@@ -57,4 +60,4 @@ Running tree command:
 ├── tailwind.config.ts
 └── tsconfig.json
 
-19 directories, 35 files
+20 directories, 37 files

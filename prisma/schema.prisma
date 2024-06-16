@@ -41,6 +41,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  queues        Queue[]
 }
 
 model VerificationToken {
@@ -48,4 +49,41 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
   @@unique([identifier, token])
+}
+
+model Song {
+  id        Int      @id @default(autoincrement())
+  spotifyId String
+  title     String
+  artist    String
+  duration  Int
+  createdAt DateTime @default(now())
+  queues    Queue[]
+}
+
+model Queue {
+  id        Int      @id @default(autoincrement())
+  songId    Int
+  userId    String
+  bidAmount Float    @default(0.0)
+  createdAt DateTime @default(now())
+  isPlaying Boolean  @default(false)
+  song      Song     @relation(fields: [songId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  bids      Bid[]
+}
+
+model Payment {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  confirmed Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Bid {
+  id        Int      @id @default(autoincrement())
+  queueId   Int
+  amount    Float
+  createdAt DateTime @default(now())
+  queue     Queue    @relation(fields: [queueId], references: [id])
 }
